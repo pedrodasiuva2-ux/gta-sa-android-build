@@ -6,9 +6,13 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Baixar projeto
+      - name: Baixar projeto GTA SA
         uses: actions/checkout@v4
+        with:
+          repository: gta-android/gta-reversed-android
+          path: gta
 
       - name: Instalar Java
         uses: actions/setup-java@v4
@@ -18,7 +22,7 @@ jobs:
 
       - name: Compilar APK
         run: |
-          cd android
+          cd gta/android
           chmod +x gradlew
           ./gradlew assembleDebug
 
@@ -26,4 +30,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: GTA-SA-APK
-          path: android/app/build/outputs/apk/debug/*.apk
+          path: gta/android/app/build/outputs/apk/debug/*.apk
